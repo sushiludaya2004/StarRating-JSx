@@ -1,6 +1,6 @@
 import "./App.css";
 import { FaStar } from "react-icons/fa";
-import { useState } from "react";
+import { useState, useMemo } from "react";
 
 function Star({ noOfStars = 5 }) {
   const [rating, setRating] = useState(0);
@@ -24,13 +24,10 @@ function Star({ noOfStars = 5 }) {
     setHover(null);
   };
 
-  return (
-    <div>
-      <h2>Star Rating</h2>
-      {[...Array(noOfStars)].map((_, i) => {
+  const starsArray = useMemo(
+    () =>
+      [...Array(noOfStars)].map((_, i) => {
         const index = i + 1;
-        console.log("render");
-        
         return (
           <FaStar
             key={index}
@@ -41,9 +38,38 @@ function Star({ noOfStars = 5 }) {
             size={40}
           />
         );
-      })}
+      }),
+    [noOfStars, hover, rating, handleClick, handleMouseEnter, handleMouseLeave]
+  );
+
+  return (
+    <div>
+      <h2>Star Rating</h2>
+      {starsArray}
     </div>
   );
+
+
+  // return (
+  //   <div>
+  //     <h2>Star Rating</h2>
+  //     {[...Array(noOfStars)].map((_, i) => {
+  //       const index = i + 1;
+  //       console.log("render");
+        
+  //       return (
+  //         <FaStar
+  //           key={index}
+  //           color={index <= (hover || rating) ? "orange" : "gray"}
+  //           onClick={() => handleClick(index)}
+  //           onMouseEnter={() => handleMouseEnter(index)}
+  //           onMouseLeave={handleMouseLeave}
+  //           size={40}
+  //         />
+  //       );
+  //     })}
+  //   </div>
+  // );
 }
 
 export default Star;
