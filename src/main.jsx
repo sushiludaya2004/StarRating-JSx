@@ -4,7 +4,5 @@ import './index.css'
 import Star from './Star.jsx'
 
 createRoot(document.getElementById('root')).render(
-  <StrictMode>
-    <Star />
-  </StrictMode>,
+    <Star noOfStars={5}/>
 )
